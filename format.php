@@ -10,19 +10,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $phoneNumberString = $_POST["phone"];
 
+    $phoneNumberString = preg_replace("/[^0-9]/", "", $phoneNumberString);
+
     $phoneNumber = $phoneNumberUtil->parse($phoneNumberString, 'KE');
 
     if ($phoneNumberUtil->isValidNumber($phoneNumber)) {
         $formattedNumber = $phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::INTERNATIONAL);
-        // Remove the plus sign from Kenyan numbers
         $formattedNumber = ltrim($formattedNumber, '+');
         echo "Formatted Phone Number: " . $formattedNumber;
     } else {
-        // Add the plus sign for non-Kenyan numbers
         $formattedNumber = '+' . $phoneNumberString;
         echo "Invalid phone number. Formatted Phone Number: " . $formattedNumber;
     }
 }
+
 ?>
 
 
