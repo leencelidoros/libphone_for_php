@@ -14,12 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($phoneNumberUtil->isValidNumber($phoneNumber)) {
         $formattedNumber = $phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::INTERNATIONAL);
+        // Remove the plus sign from Kenyan numbers
+        $formattedNumber = ltrim($formattedNumber, '+');
         echo "Formatted Phone Number: " . $formattedNumber;
     } else {
-        echo 'Invalid phone number.';
+        // Add the plus sign for non-Kenyan numbers
+        $formattedNumber = '+' . $phoneNumberString;
+        echo "Invalid phone number. Formatted Phone Number: " . $formattedNumber;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
