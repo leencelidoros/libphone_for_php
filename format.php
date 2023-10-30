@@ -10,12 +10,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $phoneNumberString = $_POST["phone"];
 
-    $phoneNumberString = preg_replace("/[^0-9]/", "", $phoneNumberString);
+    // $phoneNumberString = preg_replace("/[^0-9]/", "", $phoneNumberString);
 
     $phoneNumber = $phoneNumberUtil->parse($phoneNumberString, 'KE');
 
     if ($phoneNumberUtil->isValidNumber($phoneNumber)) {
-        $formattedNumber = $phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::INTERNATIONAL);
+        $formattedNumber = $phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::E164);
         $formattedNumber = ltrim($formattedNumber, '+');
         echo "Formatted Phone Number: " . $formattedNumber;
     } else {
